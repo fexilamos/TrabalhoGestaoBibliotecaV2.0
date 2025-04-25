@@ -64,7 +64,7 @@ namespace GestaoBiblioteca
                 nome = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(nome))
                 {
-                    Console.WriteLine("[Erro] O nome não pode estar vazio. Por favor, insira um nome válido.");
+                    Console.WriteLine("[Erro]: O nome não pode estar vazio. Por favor, insira um nome válido.");
                 }
             } while (string.IsNullOrWhiteSpace(nome)); // Repete enquanto o nome for vazio ou só espaços
 
@@ -76,7 +76,7 @@ namespace GestaoBiblioteca
                 morada = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(morada))
                 {
-                    Console.WriteLine("[Erro] A morada não pode estar vazia. Por favor, insira uma morada válida.");
+                    Console.WriteLine("[Erro]: A morada não pode estar vazia. Por favor, insira uma morada válida.");
                 }
             } while (string.IsNullOrWhiteSpace(morada)); // Repete enquanto a morada for vazia ou só espaços
 
@@ -90,12 +90,12 @@ namespace GestaoBiblioteca
 
                 if (string.IsNullOrWhiteSpace(telefone))
                 {
-                    Console.WriteLine("[Erro] O número de telefone não pode estar vazio.");
+                    Console.WriteLine("[Erro]: O número de telefone não pode estar vazio.");
                     telefoneValido = false; // Não é válido
                 }
                 else if (telefone.Length != 9)
                 {
-                    Console.WriteLine("[Erro] O número de telefone deve ter exatamente 9 dígitos.");
+                    Console.WriteLine("[Erro]: O número de telefone deve ter exatamente 9 dígitos.");
                     telefoneValido = false; // Não é válido
                 }
                 else
@@ -108,7 +108,7 @@ namespace GestaoBiblioteca
                     }
                     else
                     {
-                        Console.WriteLine("[Erro] O número de telefone deve conter apenas números.");
+                        Console.WriteLine("[Erro]: O número de telefone deve conter apenas números.");
                         telefoneValido = false; // Não é válido
                     }
                 }
@@ -123,7 +123,7 @@ namespace GestaoBiblioteca
 
                 if (string.IsNullOrWhiteSpace(username))
                 {
-                    Console.WriteLine("Erro: O Nome do Usuario não pode estar vazio.");
+                    Console.WriteLine("[Erro]: O Nome do Usuario não pode estar vazio.");
                     usernameValido = false;
                 }
                 else
@@ -232,7 +232,7 @@ namespace GestaoBiblioteca
                 {
                     // Conversão bem-sucedida, agora verificar se o utilizador existe no sistema
                     // Método no BibliotecaSistema para procurar o utilizador
-                    object utilizador = bibliotecaSistema.GetUtilizadorById(utilizadorID); // Assume que retorna null se não existir
+                    Utilizador utilizador = bibliotecaSistema.GetUtilizadorById(utilizadorID); // Assume que retorna null se não existir
 
                     if (utilizador != null) // Verificar se o método encontrou o utilizador
                     {
@@ -266,7 +266,7 @@ namespace GestaoBiblioteca
                 {
                     // Conversão bem-sucedida, agora verificar se o livro existe no sistema
                     // Método no BibliotecaSistema para procurar o livro
-                    object livro = bibliotecaSistema.GetLivroById(livroID); // Assume que retorna null se não existir
+                    Livro livro = bibliotecaSistema.GetLivroById(livroID); // Assume que retorna null se não existir
 
                     if (livro != null) // Verificar se o método encontrou o livro
                     {
@@ -274,7 +274,7 @@ namespace GestaoBiblioteca
                     }
                     else
                     {
-                        Console.WriteLine($"Erro: Livro com ID {livroID} não encontrado no sistema. Por favor, verifique o ID.");
+                        Console.WriteLine($"[Erro]: Livro com ID {livroID} não encontrado no sistema. Por favor, verifique o ID.");
                         livroEncontrado = false; // ID válido, mas livro não existe
                     }
                 }

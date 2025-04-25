@@ -166,6 +166,11 @@ namespace GestaoBiblioteca
             // Usa LINQ Any() para verificar se ALGUM utilizador na lista
             // tem um Username que corresponde ao fornecido (comparação sem diferenciar maiúsculas/minúsculas)
         }
-
+         public bool LivroExiste(string titulo)
+        {
+            return livros.Any(l => l.Titulo.Equals(titulo, StringComparison.OrdinalIgnoreCase));
+            // Usa LINQ Any() para verificar se ALGUM livro na lista
+            // tem um Titulo que corresponde ao fornecido (comparação sem diferenciar maiúsculas/minúsculas)
+        }
     }
 }
