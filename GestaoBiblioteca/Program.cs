@@ -32,8 +32,7 @@ bibliotecaSistema.AdicionarUtilizador("João Silva", "Rua da Alegria, 789", "945
 bibliotecaSistema.AdicionarFuncionario("Ana Costa", "Travessa do Sol, 78", "926789123", "Bibliotecária", "Ana Costa", "password");
 bibliotecaSistema.AdicionarFuncionario("Pedro Santos", "Rua Nova, 12", "938765432", "Assistente", "Pedro Santos", "password");
 
-            Console.WriteLine(
-    FiggleFonts.Ogre.Render("Biblioteca"));
+            Console.WriteLine("Biblioteca");
             bool sair = false;
 
             while (!sair)

@@ -23,29 +23,29 @@ namespace GestaoBiblioteca
                 Console.WriteLine("[6] Gestão de Empréstimos");
                 Console.WriteLine("[0] Voltar ao Menu Principal");
                 Console.Write("Escolha a opção que pretende: ");
-                int opcao = int.Parse(Console.ReadLine());
+                string opcao = Console.ReadLine();
 
                 switch (opcao)
                 {
-                    case 1:
+                    case "1":
                         RegistarNovoUtilizador(bibliotecaSistema);
                         break;
-                    case 2:
+                    case "2":
                         RegistarNovoFuncionario(bibliotecaSistema);
                         break;
-                    case 3:
+                    case "3":
                         ListarUtilizadores(bibliotecaSistema);
                         break;
-                    case 4:
+                    case "4":
                         ListarFuncionarios(bibliotecaSistema);
                         break;
-                    case 5:
+                    case "5":
                         MostrarMenusLivros(bibliotecaSistema);
                         break;
-                    case 6:
+                    case "6":
                         MostrarMenusEmprestimos(bibliotecaSistema);
                         break;
-                    case 0:
+                    case "0":
                         voltar = true;
                         break;
                     default:
@@ -145,16 +145,138 @@ namespace GestaoBiblioteca
         {
             Console.Clear();
             Console.WriteLine("\n--- Registar Novo Utilizador ---");
-            Console.Write("Nome: ");
-            string nome = Console.ReadLine();
-            Console.Write("Morada: ");
-            string morada = Console.ReadLine();
-            Console.Write("Telefone: ");
-            string telefone = Console.ReadLine();
-            Console.Write("Username: ");
-            string username = Console.ReadLine();
-            Console.Write("Password: ");
-            string password = LerPasswordComAsteriscos();
+            string nome;
+            // Validar Nome: garantir que não está vazio ou apenas com espaços em branco
+            do
+            {
+                Console.Write("Insira o seu nome: ");
+                nome = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(nome))
+                {
+                    Console.WriteLine("[Erro] O nome não pode estar vazio. Por favor, insira um nome válido.");
+                }
+            } while (string.IsNullOrWhiteSpace(nome)); // Repete enquanto o nome for vazio ou só espaços
+
+            string morada;
+            // Validar Morada: garantir que não está vazia ou apenas com espaços em branco
+            do
+            {
+                Console.Write("Insira a sua morada: ");
+                morada = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(morada))
+                {
+                    Console.WriteLine("[Erro] A morada não pode estar vazia. Por favor, insira uma morada válida.");
+                }
+            } while (string.IsNullOrWhiteSpace(morada));
+
+            string telefone;
+            bool telefoneValido = false;
+            // Validar Telefone: garantir que não está vazio, tem 9 dígitos e contém apenas números
+            do
+            {
+                Console.Write("Insira o seu numero de telefone (9 dígitos): ");
+                telefone = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(telefone))
+                {
+                    Console.WriteLine("[Erro] O número de telefone não pode estar vazio.");
+                    telefoneValido = false; // Não é válido
+                }
+                else if (telefone.Length != 9)
+                {
+                    Console.WriteLine("[Erro] O número de telefone deve ter exatamente 9 dígitos.");
+                    telefoneValido = false; // Não é válido
+                }
+                else
+                {
+                    // Verificar se todos os caracteres são dígitos
+                    // Requer 'using System.Linq;' no topo do seu ficheiro
+                    if (telefone.All(char.IsDigit))
+                    {
+                        telefoneValido = true; // Passou todas as validações básicas
+                    }
+                    else
+                    {
+                        Console.WriteLine("[Erro] O número de telefone deve conter apenas números.");
+                        telefoneValido = false; // Não é válido
+                    }
+                }
+            } while (!telefoneValido);
+
+            string username;
+            bool usernameValido = false;
+            do
+            {
+                Console.Write("Insira o seu Nome do Usuario: ");
+                username = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(username))
+                {
+                    Console.WriteLine("Erro: O Nome do Usuario não pode estar vazio.");
+                    usernameValido = false;
+                }
+                else
+                {
+                    // --- Validar se o username já existe no sistema ---
+                    if (bibliotecaSistema.UtilizadorExiste(username))
+                    {
+                        Console.WriteLine($"[Erro]: O Nome de Usuario '{username}' já está em uso. Por favor, escolha outro.");
+                        usernameValido = false; // Não é válido porque não é único
+                    }
+                    else
+                    {
+                        usernameValido = true; // Válido (passou verificações de formato e unicidade)
+                    }
+                }
+            } while (!usernameValido); // Repetir enquanto o username for inválido (vazio ou já existente)
+            string password;
+            bool passwordValida = false;
+            do
+            {
+                Console.Write("Insira a sua senha: ");
+                password = LerPasswordComAsteriscos();
+
+                if (string.IsNullOrWhiteSpace(password))
+                {
+                    Console.WriteLine("[Erro]: A senha não pode estar vazia.");
+                    passwordValida = false;
+                }
+
+                else if (password.Length < 8) // Senha com mínimo 8 caracteres
+                {
+                    Console.WriteLine("[Erro]: A senha deve ter pelo menos 8 caracteres.");
+                    passwordValida = false;
+                }
+                else
+                {
+                    passwordValida = true; // Passou as validações de formato e comprimento
+                }
+            } while (!passwordValida); // Repetir enquanto a password for inválida
+
+
+            // Confirmação da Password (deve ser igual à anterior)
+            string confirmacaoPassword;
+            bool passwordsCorrespondem = false;
+            do
+            {
+                Console.Write("Confirme a senha: ");
+                confirmacaoPassword = LerPasswordComAsteriscos();
+
+                if (string.IsNullOrWhiteSpace(confirmacaoPassword))
+                {
+                    Console.WriteLine("[Erro]: A confirmação da senha não pode estar vazia.");
+                    passwordsCorrespondem = false;
+                }
+                else if (confirmacaoPassword != password) // Comparar com a password original inserida
+                {
+                    Console.WriteLine("[Erro]: As senhas não correspondem. Por favor, tente novamente.");
+                    passwordsCorrespondem = false;
+                }
+                else
+                {
+                    passwordsCorrespondem = true; // Passwords coincidem
+                }
+            } while (!passwordsCorrespondem);
 
             bibliotecaSistema.AdicionarUtilizador(nome, morada, telefone, username, password);
             Console.WriteLine("Utilizador registado com sucesso!");
@@ -164,17 +286,17 @@ namespace GestaoBiblioteca
         {
             Console.Clear();
             Console.WriteLine("\n--- Registar Novo Funcionário ---");
-            Console.Write("Nome: ");
+            Console.Write("Insira o Nome: ");
             string nome = Console.ReadLine();
-            Console.Write("Morada: ");
+            Console.Write("Insira a Morada: ");
             string morada = Console.ReadLine();
-            Console.Write("Telefone: ");
+            Console.Write("Insira o numero de Telefone: ");
             string telefone = Console.ReadLine();
-            Console.Write("Cargo: ");
+            Console.Write("Insira o Cargo: ");
             string cargo = Console.ReadLine();
-            Console.Write("Username: ");
+            Console.Write("Insira o Nome do Usuario: ");
             string username = Console.ReadLine();
-            Console.Write("Password: ");
+            Console.Write("Insira a Senha: ");
             string password = Console.ReadLine();
 
 

@@ -134,5 +134,38 @@ namespace GestaoBiblioteca
         .FirstOrDefault(f => f.Username == username && f.Password == password);
         }
 
+        public Utilizador GetUtilizadorById(int id)
+        {
+            foreach (var utilizador in utilizadores)
+            {
+                if (utilizador.ID == id)
+                {
+                    return utilizador; // Encontrou um utilizador com o ID, retorna-o
+                }
+            }
+            // Se o ciclo terminar (percorreu toda a lista) e não encontrou, retorna null
+            return null;
+        }
+
+        public Livro GetLivroById(int id)
+        {
+            foreach (var livro in livros)
+            {
+                if (livro.ID == id)
+                {
+                    return livro; // Encontrou um livro com o ID, retorna-o
+                }
+            }
+            // Se o ciclo terminar e não encontrou, retorna null
+            return null;
+        }
+
+        public bool UtilizadorExiste(string username)
+        {            
+            return utilizadores.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+            // Usa LINQ Any() para verificar se ALGUM utilizador na lista
+            // tem um Username que corresponde ao fornecido (comparação sem diferenciar maiúsculas/minúsculas)
+        }
+
     }
 }
