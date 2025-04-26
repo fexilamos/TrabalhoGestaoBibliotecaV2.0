@@ -1,5 +1,6 @@
 ﻿using Figgle;
 using System;
+using GestaoBiblioteca;
 
 namespace GestaoBiblioteca
 {
@@ -37,6 +38,7 @@ bibliotecaSistema.AdicionarFuncionario("Pedro Santos", "Rua Nova, 12", "93876543
 
             while (!sair)
             {
+                Console.Clear();
                 Console.WriteLine("=====================================");
                 Console.WriteLine("     Sistema de Gestão de Biblioteca ");
                 Console.WriteLine("=====================================");
@@ -65,16 +67,12 @@ bibliotecaSistema.AdicionarFuncionario("Pedro Santos", "Rua Nova, 12", "93876543
                         break;
                     default:
                         Console.WriteLine("Opção inválida.");
-                        PressioneParaContinuar();
+                        ConsolaAjuda.PressioneParaContinuar();
                         break;
                 }
             }
         }
 
-        static void PressioneParaContinuar()
-        {
-            Console.WriteLine("\nPressione qualquer tecla para continuar...");
-            Console.ReadKey();
-        }
+       
     }
 }

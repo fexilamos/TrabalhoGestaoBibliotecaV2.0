@@ -12,7 +12,7 @@ namespace GestaoBiblioteca
         Ativo,
         Devolvido
     }
-    class Emprestimo
+    public class Emprestimo
     {
         private static int proximoID = 1;
         private const int DuracaoEmpresitmoDias = 3;

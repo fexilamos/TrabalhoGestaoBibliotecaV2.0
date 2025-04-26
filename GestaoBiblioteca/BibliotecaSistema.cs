@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca
 {
-    class BibliotecaSistema
+    public class BibliotecaSistema
     {
         private List<Livro> livros;
         private List<Utilizador> utilizadores;
@@ -81,32 +81,40 @@ namespace GestaoBiblioteca
             return true;
         }
 
-        public bool RegistarDevolucao(int livroID, int utilizadorID)
+        public bool RegistarDevolucao(int livroID, int utilizadorID, out decimal multaCalculada)
         {
+            multaCalculada = 0m; 
             var emprestimo = emprestimos.FirstOrDefault(e =>
                 e.LivroID == livroID &&
                 e.UtilizadorID == utilizadorID &&
                 e.Estado == EstadoEmprestimo.Ativo);
 
             if (emprestimo == null)
+            {
                 return false;
+            }
 
             emprestimo.Estado = EstadoEmprestimo.Devolvido;
 
             Livro livro = livros.FirstOrDefault(l => l.ID == livroID);
             if (livro != null)
+            {
                 livro.IncrementarDisponiveis();
+            }
 
             // Calcular multa se o prazo de 3 dias foi excedido
             if (DateTime.Now > emprestimo.DataDevolucaoPrevista)
             {
                 int diasAtraso = (DateTime.Now - emprestimo.DataDevolucaoPrevista).Days;
+
+                if (diasAtraso < 0)
+                {
+                    diasAtraso = 0; // Se a data de devolução prevista for no futuro, não há atraso
+                }
+
                 decimal multa = diasAtraso * 1.0m; // 1 euro por dia de atraso
-                Console.WriteLine($"Multa devida: {multa:C} (Atraso de {diasAtraso} dias)");
-            }
-            else
-            {
-                Console.WriteLine("Devolução realizada dentro do prazo. Nenhuma multa aplicada.");
+
+                multaCalculada = multa;
             }
 
             return true;
@@ -134,7 +142,7 @@ namespace GestaoBiblioteca
         .FirstOrDefault(f => f.Username == username && f.Password == password);
         }
 
-        public Utilizador GetUtilizadorById(int id)
+        public Utilizador UtilizadorID(int id)
         {
             foreach (var utilizador in utilizadores)
             {
@@ -147,7 +155,7 @@ namespace GestaoBiblioteca
             return null;
         }
 
-        public Livro GetLivroById(int id)
+        public Livro LivroID(int id)
         {
             foreach (var livro in livros)
             {
@@ -166,7 +174,7 @@ namespace GestaoBiblioteca
             // Usa LINQ Any() para verificar se ALGUM utilizador na lista
             // tem um Username que corresponde ao fornecido (comparação sem diferenciar maiúsculas/minúsculas)
         }
-         public bool LivroExiste(string titulo)
+        public bool LivroExiste(string titulo)
         {
             return livros.Any(l => l.Titulo.Equals(titulo, StringComparison.OrdinalIgnoreCase));
             // Usa LINQ Any() para verificar se ALGUM livro na lista

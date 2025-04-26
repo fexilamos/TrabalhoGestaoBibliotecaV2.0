@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca
 {
-    class Funcionario : Utilizador
+    public class Funcionario : Utilizador
     {
 
         private static int proximoCodFuncionario = 101; //Contador estatico APENAS para Funcionario

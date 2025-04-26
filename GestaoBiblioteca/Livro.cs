@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca
 {
-    class Livro
+    public class Livro
     {
         private static int proximoID = 1;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca
 {
-    class Utilizador
+    public class Utilizador
     {
         private static int proximoID = 1; // Contador para gerar IDs unicos
 
