@@ -13,7 +13,9 @@ namespace GestaoBiblioteca
         {
             string nomeSeguro = NomeSeguro(nome);
             string nomeFicheiro = $"Funcionario_{nomeSeguro}_{DateTime.Now:yyyyMMddHHmmss}.txt";
-            string caminhoFicheiro = Path.Combine(@"C:\Temp", nomeFicheiro);
+            string caminhoFicheiro = Path.Combine(
+     Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+     nomeFicheiro);
 
             try
             {
@@ -47,8 +49,9 @@ namespace GestaoBiblioteca
         {
             string nomeSeguro = NomeSeguro(nome);
             string nomeFicheiro = $"Ficha_{nomeSeguro}_{DateTime.Now:yyyyMMddHHmmss}.txt";
-            string caminhoFicheiro = Path.Combine(@"C:\Temp", nomeFicheiro);
-
+            string caminhoFicheiro = Path.Combine(
+               Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+               nomeFicheiro);
             try
             {
                 using (StreamWriter sw = new StreamWriter(caminhoFicheiro))
@@ -79,8 +82,9 @@ namespace GestaoBiblioteca
         {
             string nomeSeguro = NomeSeguro(nomeCliente);
             string nomeFicheiro = $"Recibo_{nomeSeguro}_{dataEmprestimo:yyyyMMddHHmmss}.txt";
-            string caminhoFicheiro = Path.Combine(@"C:\Temp", nomeFicheiro);
-
+            string caminhoFicheiro = Path.Combine(
+               Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+               nomeFicheiro);
             try
             {
                 using (StreamWriter sw = new StreamWriter(caminhoFicheiro))
