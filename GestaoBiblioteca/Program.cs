@@ -2,6 +2,7 @@
 using System;
 using GestaoBiblioteca;
 using Spectre.Console;
+using System.Text;
 
 namespace GestaoBiblioteca
 {
@@ -9,6 +10,8 @@ namespace GestaoBiblioteca
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             BibliotecaSistema bibliotecaSistema = new BibliotecaSistema();
             FuncionarioServico funcionarioServico = new FuncionarioServico();
             UtilizadorServico utilizadorServico = new UtilizadorServico();
@@ -33,6 +36,15 @@ namespace GestaoBiblioteca
             bibliotecaSistema.AdicionarFuncionario("Ana Costa", "Travessa do Sol, 78", "926789123", "Bibliotecária", "AnaCosta", "password");
             bibliotecaSistema.AdicionarFuncionario("Pedro Santos", "Rua Nova, 12", "938765432", "Assistente", "PedroSantos", "password");
 
+
+            // Emprestimos
+            Emprestimo emprestimo = new Emprestimo(1, 1, new DateTime(2025, 1, 15));
+            Emprestimo emprestimo1 = new Emprestimo(2, 4, new DateTime(2025, 4, 28));
+            bibliotecaSistema.emprestimos.Add(emprestimo);
+            bibliotecaSistema.emprestimos.Add(emprestimo1);
+          
+            
+            
             bool sair = false;
 
             while (!sair)

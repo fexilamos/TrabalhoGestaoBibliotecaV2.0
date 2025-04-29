@@ -13,7 +13,7 @@ namespace GestaoBiblioteca
     {
         private List<Livro> livros;
         private List<Utilizador> utilizadores;
-        private List<Emprestimo> emprestimos;
+        public List<Emprestimo> emprestimos;
         private int maximoEmprestimosPorUtilizador = 3;
 
         public BibliotecaSistema()

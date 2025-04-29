@@ -26,13 +26,29 @@ namespace GestaoBiblioteca
 
         public Emprestimo (int livroID, int utilizadorID)
         {
-            ID = proximoID;
+            ID = proximoID++;
             LivroID = livroID;
             UtilizadorID = utilizadorID;
             DataEmprestimo = DateTime.Now; //Vai ficar com a hora do computador
             DataDevolucaoPrevista = DataEmprestimo.AddDays(DuracaoEmpresitmoDias);
             Estado = EstadoEmprestimo.Ativo;
         }
+
+        public Emprestimo(int livroID, int utilizadorID, DateTime dataEmprestimo)
+        {
+            ID = proximoID++;
+            LivroID = livroID;
+            UtilizadorID = utilizadorID;
+            DataEmprestimo = dataEmprestimo;
+            DataDevolucaoPrevista = DataEmprestimo.AddDays(DuracaoEmpresitmoDias);
+            Estado = EstadoEmprestimo.Ativo;
+        }
+
+
+
+
+
+
         public override string ToString()
         {
 

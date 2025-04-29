@@ -3,6 +3,7 @@ using GestaoBiblioteca;
 using Spectre.Console;
 using Figgle;
 
+
 namespace GestaoBiblioteca
 {
     internal class FuncionarioServico
@@ -400,7 +401,7 @@ namespace GestaoBiblioteca
             int utilizadorID = utilizador.ID;
             Livro livro = ConsolaAjuda.ProcurarLivroPorID(bibliotecaSistema);
             int livroID = livro.ID;
-
+           
             bool sucesso = bibliotecaSistema.FazerEmprestimo(livroID, utilizadorID);
 
             if (sucesso)
@@ -432,7 +433,8 @@ namespace GestaoBiblioteca
                 Console.WriteLine("Livro devolvido com sucesso!");
                 if (multaAplicada > 0)
                 {
-                    Console.WriteLine($"Multa aplicada: {multaAplicada:C}");
+                    Console.WriteLine($"Multa aplicada: {multaAplicada.ToString("C", new System.Globalization.CultureInfo("pt-PT"))}");
+
                 }
                 else
                 {
@@ -449,22 +451,59 @@ namespace GestaoBiblioteca
         {
             Console.Clear();
 
-            Console.WriteLine($"\n--- {(apenasAtivos ? "Empréstimos Ativos" : "Todos os Empréstimos")} ---");
+            string tituloPainel = apenasAtivos ? "Empréstimos Ativos" : "Todos os Empréstimos";
+
+            AnsiConsole.Write(
+                new Panel(tituloPainel)
+                    .Border(BoxBorder.Rounded)
+                    .BorderStyle(new Style(foreground: Color.Yellow))
+                    .Header("[yellow]Lista de Empréstimos[/]", Justify.Center)
+            );
 
             var lista = bibliotecaSistema.ObterEmprestimos(apenasAtivos);
 
             if (lista.Count == 0)
             {
-                Console.WriteLine("Nenhum empréstimo encontrado.");
+                AnsiConsole.MarkupLine("[red]Nenhum empréstimo encontrado![/]");
+                return;
             }
-            else
+
+            var tabela = new Table();
+            tabela.Border(TableBorder.Rounded);
+
+            tabela.AddColumn("[bold]ID[/]");
+            tabela.AddColumn("[bold]Livro[/]");
+            tabela.AddColumn("[bold]Utilizador[/]");
+            tabela.AddColumn("[bold]Data Empréstimo[/]");
+            tabela.AddColumn("[bold]Data Devolução Prevista[/]");
+            tabela.AddColumn("[bold]Estado[/]");
+
+            foreach (var emprestimo in lista)
             {
-                foreach (var emprestimo in lista)
-                {
-                    Console.WriteLine(emprestimo);
-                }
+                // Buscar o livro e o utilizador corretos
+                var livro = bibliotecaSistema.LivroID(emprestimo.LivroID);
+                var utilizador = bibliotecaSistema.UtilizadorID(emprestimo.UtilizadorID);
+
+                string nomeLivro = livro != null ? livro.Titulo : "Desconhecido";
+                string nomeUtilizador = utilizador != null ? utilizador.Nome : "Desconhecido";
+
+                string estado = emprestimo.Estado == EstadoEmprestimo.Ativo
+                    ? $"[green]Ativo[/] (até {emprestimo.DataDevolucaoPrevista:dd/MM/yyyy})"
+                    : "[red]Devolvido[/]";
+
+                tabela.AddRow(
+                    emprestimo.ID.ToString(),
+                    nomeLivro,
+                    nomeUtilizador,
+                    emprestimo.DataEmprestimo.ToString("dd/MM/yyyy"),
+                    emprestimo.DataDevolucaoPrevista.ToString("dd/MM/yyyy"),
+                    estado
+                );
             }
+
+            AnsiConsole.Write(tabela);
         }
+
 
         public void FazerLoginFuncionario(BibliotecaSistema bibliotecaSistema)
         {
