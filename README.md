@@ -2,6 +2,8 @@
 Sistema de Gestão de Biblioteca desenvolvido em C# com Windows Forms, permitindo uma gestão eficiente de livros, utilizadores e empréstimos.
 
 👥 Autores
+
+
 Bruna Anjos
 
 Luís Mago
