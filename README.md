@@ -1,43 +1,43 @@
 # 📚 TrabalhoGestaoBibliotecaV2.0
 
-Sistema de Gestão de Biblioteca desenvolvido em C# com Windows Forms, permitindo uma gestão eficiente de livros, utilizadores e empréstimos.
+Library Management System developed in C# with Windows Forms, allowing efficient management of books, users, and loans.
 
-## 👥 Autores
+## 👥 Authors
 
 - Bruna Anjos  
 - Luís Mago  
-- Tiago Cardona 
+- Tiago Cardona  
 
-## 🧰 Tecnologias Utilizadas
+## 🧰 Technologies Used
 
-- **Linguagem:** C#  
+- **Language:** C#  
 - **Framework:** .NET Framework  
-- **Interface Gráfica:** Windows Forms  
-- **Ambiente de Desenvolvimento:** Visual Studio  
+- **GUI:** Windows Forms  
+- **Development Environment:** Visual Studio  
 
-## 🗂️ Estrutura do Projeto
+## 🗂️ Project Structure
 
-O repositório contém os seguintes diretórios e ficheiros principais:
+The repository contains the following main folders and files:
 
-- `GestaoBiblioteca/`: Contém o código-fonte principal da aplicação.  
-- `.gitignore`: Ficheiro de configuração para ignorar ficheiros no controlo de versões.  
-- `README.md`: Este ficheiro de documentação.  
+- `GestaoBiblioteca/`: Contains the main source code of the application.  
+- `.gitignore`: Configuration file to exclude files from version control.  
+- `README.md`: This documentation file.  
 
-## 🎯 Funcionalidades
+## 🎯 Features
 
-- **Registo de Livros:** Adição de novos livros ao acervo da biblioteca.  
-- **Registo de Utilizadores:** Registo de utilizadores com permissões para realizar empréstimos.  
-- **Empréstimos e Devoluções:** Gestão de empréstimos de livros e respectivas devoluções.  
-- **Consulta ao Catálogo:** Pesquisa e visualização dos livros disponíveis.  
-- **Relatórios:** Geração de relatórios sobre o catálogo e actividade da biblioteca.  
+- **Book Registration:** Add new books to the library's collection.  
+- **User Registration:** Register users with permission to borrow books.  
+- **Loans and Returns:** Manage book loans and their respective returns.  
+- **Catalogue Search:** Search and view available books.  
+- **Reports:** Generate reports about the catalogue and library activity.  
 
-## 🚀 Como Executar o Projeto
+## 🚀 How to Run the Project
 
-1. **Pré-requisitos:**
-   - Visual Studio instalado com suporte a projetos Windows Forms em C#.  
-   - .NET Framework compatível com o projeto.
+1. **Prerequisites:**
+   - Visual Studio installed with support for Windows Forms projects in C#.  
+   - .NET Framework compatible with the project.
 
-2. **Clonar o Repositório:**
+2. **Clone the Repository:**
 
    ```bash
    git clone https://github.com/fexilamos/TrabalhoGestaoBibliotecaV2.0.git
